@@ -1,10 +1,8 @@
 import { combineReducers } from "redux";
-import UserLayout from "@layouts/UserLayout";
-import UserPages from "@pages/User/Dashboard";
+import userLayout from "@layouts/redux/reducers";
 
 const rootReducer = combineReducers({
-  UserLayout,
-  UserPages,
+  userLayout,
 });
 
 export default rootReducer;

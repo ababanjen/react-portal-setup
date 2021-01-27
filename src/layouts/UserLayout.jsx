@@ -3,13 +3,21 @@ import { renderRoutes } from "react-router-config";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-const UserLayout = ({ route }) => {
+const UserLayout = ({ dispatch, route }) => {
   useEffect(() => {
     document.querySelector("body").classList.add("user-layout");
+    fetchUsers();
     return () => {
       document.querySelector("body").classList.remove("user-layout");
     };
   }, []);
+
+  const fetchUsers = (_) =>
+    dispatch({
+      type: "FETCH_USERS_REQUESTED",
+      payload: "",
+    });
+
   return (
     <div className="user-layout-wrapper">
       User Layout
@@ -24,7 +32,7 @@ UserLayout.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  ...state,
+  ...state.userLayout,
   ownProps,
 });
 export default connect(mapStateToProps)(UserLayout);

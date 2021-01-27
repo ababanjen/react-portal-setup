@@ -1,14 +1,15 @@
 import React from "react";
-import { connect } from "react-redux";
-import { compareObjectValues } from "@utils/helpers";
-
-const DashboardPage = () => {
-  console.log({compareObjectValues});
+import { withSelector } from "@hoc";
+import { useSelector } from "react-redux";
+const DashboardPage = ({ ...props }) => {
+  const test = useSelector(state => {
+    console.log({state});
+    return {
+      users: state.userLayout.users
+    }
+  })
+  console.log({test});
   return <>Welcome to your Dashboard</>;
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  ...state,
-  ownProps,
-});
-export default connect(mapStateToProps)(DashboardPage);
+export default withSelector(DashboardPage);

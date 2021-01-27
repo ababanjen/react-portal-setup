@@ -67,11 +67,11 @@ module.exports = {
       filename: 'static/css/[name].css',
       chunkFilename: 'static/css/main.[contenthash].css'
     }),
-    // new CopyPlugin({
-    //   patterns: [
-    //     { from: `${path.join(process.cwd())}/src/assets`, to: 'assets' }
-    //   ]
-    // }),
+    new CopyPlugin({
+      patterns: [
+        { from: `${path.join(process.cwd())}/src/assets`, to: 'assets' }
+      ]
+    }),
     new webpack.DefinePlugin({
       'process.env.CUSTOM': JSON.stringify(env.parsed)
     })
@@ -85,6 +85,7 @@ module.exports = {
     alias: {
       '@App': path.join(process.cwd(), 'src/App'),
       '@components': path.join(process.cwd(), 'src/components'),
+      '@hoc': path.join(process.cwd(), 'src/hoc'),
       '@layouts': path.join(process.cwd(), 'src/layouts'),
       '@pages': path.join(process.cwd(), 'src/pages'),
       '@styles': path.join(process.cwd(), 'src/styles'),

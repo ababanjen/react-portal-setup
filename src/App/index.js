@@ -8,7 +8,6 @@ import { renderRoutes } from "react-router-config";
 
 // import '@styles/app.scss'
 import routes from "./routes";
-
 const App = () => (
   <Provider store={storage}>
     <Router>{renderRoutes(routes)}</Router>
