@@ -10,7 +10,6 @@ function* fetchUsers() {
   const data = yield call(axios.request, {
     url: `${endpoint}`,
   });
-  console.log({data});
   yield put(action.fetchUsers(data));
 }
 function* createUser(payload) {
