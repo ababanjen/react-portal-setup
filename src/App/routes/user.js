@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 
-import UserLayout from '@layouts/UserLayout'
+import UserLayout from '@layouts/user/UserLayout'
 import DashboardPage from '@pages/User/Dashboard'
 
 const userPath = '/user'
