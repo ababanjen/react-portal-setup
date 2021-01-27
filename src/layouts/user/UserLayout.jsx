@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { renderRoutes } from "react-router-config";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import globalConfig from "@utils/globalConfig";
 
 const UserLayout = ({ dispatch, route }) => {
   useEffect(() => {
@@ -12,9 +13,9 @@ const UserLayout = ({ dispatch, route }) => {
     };
   }, []);
 
-  const fetchUsers = (_) =>
+  const fetchUsers = () =>
     dispatch({
-      type: "FETCH_USERS_REQUESTED",
+      type: `FETCH_USERS${globalConfig.REQUESTED}`,
       payload: "",
     });
 

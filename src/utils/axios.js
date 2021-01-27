@@ -1,7 +1,8 @@
 import axios from "axios";
+import globalConfig from "./globalConfig"
 
 const axiosInstance = axios.create({
-  baseURL: "https://bgnrr.sse.codesandbox.io/"
+  baseURL: globalConfig.ENDPOINT
 });
 
 axiosInstance.interceptors.response.use(
