@@ -4,9 +4,15 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import globalConfig from "@utils/globalConfig";
 import { Button } from "@components/FormElements";
-import { withSnackBar } from "@hoc";
+import { withSnackBar, withDialogWrapper } from "@hoc";
 
-const UserLayout = ({ dispatch, showSnackBar, route }) => {
+const UserLayout = ({
+  dispatch,
+  showSnackBar,
+  route,
+  isDialogLaunched,
+  ...props
+}) => {
   const [isSubmiting, setIsSubmiting] = useState(false);
   useEffect(() => {
     document.querySelector("body").classList.add("user-layout");
@@ -22,29 +28,58 @@ const UserLayout = ({ dispatch, showSnackBar, route }) => {
       payload: "",
     });
 
-  function handleClick() {
+  //-------------TESTING PURPOSES--------------
+  const dialogPayload = {
+    dialogContent: <h1>FULL DIALOG</h1>,
+    dialogHeader: "HEADER",
+    isSubmiting,
+    onSubmit: handleSubmit,
+    disabled: isSubmiting,
+  };
+  useEffect(() => {
+    isDialogLaunched && props.launchDialog(dialogPayload);
+  }, [isSubmiting, isDialogLaunched]);
+
+  function handleSubmit() {
     setIsSubmiting(true);
-    setTimeout(() => {// fake delay for future api call
+    props.launchDialog({ ...dialogPayload });
+    setTimeout(() => {
       setIsSubmiting(false);
-      showSnackBar({
-        message: "Success message goes here!",
-        variant:"success"
-      });
+      props.launchDialog(dialogPayload);
     }, [3000]);
   }
 
+  function handleClick() {
+    props.launchDialog(dialogPayload);
+  }
+  function handleShowSnackBar() {
+    setIsSubmiting(true);
+    setTimeout(() => {
+      setIsSubmiting(false);
+      showSnackBar({
+        message: "Success message goes here!",
+        variant: "success",
+      });
+    }, [3000]);
+  }
+  //---------------END TEST-------------
   return (
     <div className="user-layout-wrapper">
       Sample Layout:
       <br />
+      <Button size={"sm"} onClick={handleClick}>
+        Launch Dialog
+      </Button>
+      <br />
+      <br />
       <Button
         type={"submit"}
         size={"sm"}
-        onClick={handleClick}
+        onClick={handleShowSnackBar}
         isSubmiting={isSubmiting}
         disabled={isSubmiting}
       >
-        Click me
+        Launch Snackbar
       </Button>
       <br />
       {renderRoutes(route.routes)}
@@ -58,4 +93,4 @@ const mapStateToProps = (state, ownProps) => ({
   ...state.userLayout,
   ownProps,
 });
-export default connect(mapStateToProps)(withSnackBar(UserLayout));
+export default connect(mapStateToProps)(withSnackBar(withDialogWrapper(UserLayout)));

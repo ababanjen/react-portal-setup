@@ -20,7 +20,7 @@ export const withSnackBar = (OrginalComponent) =>
         setMessage(null);
         return false;
       }
-      timeout = setTimeout(autoDismiss, 2000); //2 sec
+      timeout = setTimeout(autoDismiss, 2000); //dimiss after 2 sec
     }
 
     function showSnackBar({ message, variant, action }) {
