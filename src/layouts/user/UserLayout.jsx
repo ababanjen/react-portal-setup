@@ -13,7 +13,6 @@ const UserLayout = ({
   isDialogLaunched,
   ...props
 }) => {
-  const [isSubmiting, setIsSubmiting] = useState(false);
   useEffect(() => {
     document.querySelector("body").classList.add("user-layout");
     fetchUsers();
@@ -21,21 +20,24 @@ const UserLayout = ({
       document.querySelector("body").classList.remove("user-layout");
     };
   }, []);
-
+  
   const fetchUsers = () =>
-    dispatch({
-      type: `FETCH_USERS${globalConfig.REQUESTED}`,
-      payload: "",
-    });
-
+  dispatch({
+    type: `FETCH_USERS${globalConfig.REQUESTED}`,
+    payload: "",
+  });
+  
   //-------------TESTING PURPOSES--------------
+  const [isSubmiting, setIsSubmiting] = useState(false);
+
   const dialogPayload = {
     dialogContent: <h1>FULL DIALOG</h1>,
-    dialogHeader: "HEADER",
+    dialogHeader: "HEADER sample",
     isSubmiting,
     onSubmit: handleSubmit,
     disabled: isSubmiting,
   };
+
   useEffect(() => {
     isDialogLaunched && props.launchDialog(dialogPayload);
   }, [isSubmiting, isDialogLaunched]);
@@ -52,6 +54,7 @@ const UserLayout = ({
   function handleClick() {
     props.launchDialog(dialogPayload);
   }
+  
   function handleShowSnackBar() {
     setIsSubmiting(true);
     setTimeout(() => {
